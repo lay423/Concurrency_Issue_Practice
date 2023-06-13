@@ -6,18 +6,17 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StockService {
+public class PessimisticLockStockService {
 
   private StockRepository stockRepository;
 
-  public StockService(StockRepository stockRepository) {
+  public PessimisticLockStockService(StockRepository stockRepository) {
     this.stockRepository = stockRepository;
   }
 
-  //@Transactional
+  @Transactional
   public void decrease(Long id, Long quantity) {
-
-    Stock stock = stockRepository.findById(id).orElseThrow();
+    Stock stock = stockRepository.findByIdWithPessimisticLock(id);
     stock.decrease(quantity);
     stockRepository.saveAndFlush(stock);
   }
