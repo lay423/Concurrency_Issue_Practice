@@ -1,1 +1,3 @@
-# Concurrency_Issue_Practice
+# 동시성 이슈 학습
+1. Pessimistic Lock
+2. Optimistic Lock
