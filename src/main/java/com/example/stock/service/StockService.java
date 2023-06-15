@@ -4,6 +4,7 @@ import com.example.stock.domain.Stock;
 import com.example.stock.repository.StockRepository;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 @Service
 public class StockService {
@@ -14,7 +15,7 @@ public class StockService {
     this.stockRepository = stockRepository;
   }
 
-  //@Transactional
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void decrease(Long id, Long quantity) {
 
     Stock stock = stockRepository.findById(id).orElseThrow();
